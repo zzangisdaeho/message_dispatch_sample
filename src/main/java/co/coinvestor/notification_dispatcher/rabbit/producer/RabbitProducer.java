@@ -21,10 +21,11 @@ public class RabbitProducer {
     }
 
     public void sendMessageToWebNotification(Object payload){
-        try {
-            rabbitTemplate.convertAndSend("ns.exchange-fanout.wn.v0", "", objectMapper.writeValueAsString(payload));
-        } catch (JsonProcessingException e) {
-            e.printStackTrace();
-        }
+        rabbitTemplate.convertAndSend("ns.exchange-fanout.wn.v0", "", payload);
+//        try {
+//            rabbitTemplate.convertAndSend("ns.exchange-fanout.wn.v0", "", objectMapper.writeValueAsString(payload));
+//        } catch (JsonProcessingException e) {
+//            e.printStackTrace();
+//        }
     }
 }

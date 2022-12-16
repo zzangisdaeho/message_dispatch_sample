@@ -1,5 +1,6 @@
 package co.coinvestor.notification_dispatcher.dto;
 
+import co.coinvestor.notification_dispatcher.document.Notification;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
@@ -41,6 +42,10 @@ class NSRequestDtoTest {
         NSRequestDto nsRequestDto = objectMapper.readValue(s, NSRequestDto.class);
 
         System.out.println("nsRequestDto = " + nsRequestDto);
+
+        String name = Notification.class.getName();
+
+        System.out.println("name = " + name);
 
     }
 }

@@ -35,16 +35,16 @@ public class RabbitConfig {
         return BindingBuilder.bind(queue).to(exchange).with(ROUTING_KEY);
     }
 
-//    @Bean
-//    public RabbitTemplate rabbitTemplate(ConnectionFactory connectionFactory) {
-//
-//        RabbitTemplate rabbitTemplate = new RabbitTemplate(connectionFactory);
-//        rabbitTemplate.setMessageConverter(jackson2JsonMessageConverter(null));
-//        return rabbitTemplate;
-//    }
-//
-//    @Bean
-//    public MessageConverter jackson2JsonMessageConverter(ObjectMapper objectMapper){
-//        return new Jackson2JsonMessageConverter(objectMapper);
-//    }
+    @Bean
+    public RabbitTemplate rabbitTemplate(ConnectionFactory connectionFactory) {
+
+        RabbitTemplate rabbitTemplate = new RabbitTemplate(connectionFactory);
+        rabbitTemplate.setMessageConverter(jackson2JsonMessageConverter(null));
+        return rabbitTemplate;
+    }
+
+    @Bean
+    public MessageConverter jackson2JsonMessageConverter(ObjectMapper objectMapper){
+        return new Jackson2JsonMessageConverter(objectMapper);
+    }
 }
