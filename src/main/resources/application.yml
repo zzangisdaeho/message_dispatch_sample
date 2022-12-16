@@ -1,0 +1,19 @@
+spring:
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: test
+    password: 1234
+  data:
+    mongodb:
+      host: localhost
+      port: 27017
+      username: noti
+      password: noti
+      database: notification
+      auto-index-creation: true
+#      authentication-database: admin
+
+  jackson:
+    serialization:
+      write-dates-as-timestamps: false
