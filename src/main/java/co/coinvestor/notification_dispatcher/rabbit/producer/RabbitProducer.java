@@ -17,15 +17,19 @@ public class RabbitProducer {
     private final ObjectMapper objectMapper;
 
     public void sendMessageToMail(Object payload){
-        rabbitTemplate.convertAndSend("ns.exchange-topic.mail.v0", "ns.mail.cmd.v0", payload);
+        try {
+            rabbitTemplate.convertAndSend("ns.exchange-topic.mail.v0", "ns.mail.cmd.v0", objectMapper.writeValueAsString(payload));
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
     }
 
     public void sendMessageToWebNotification(Object payload){
-        rabbitTemplate.convertAndSend("ns.exchange-fanout.wn.v0", "", payload);
-//        try {
-//            rabbitTemplate.convertAndSend("ns.exchange-fanout.wn.v0", "", objectMapper.writeValueAsString(payload));
-//        } catch (JsonProcessingException e) {
-//            e.printStackTrace();
-//        }
+//        rabbitTemplate.convertAndSend("ns.exchange-fanout.wn.v0", "", payload);
+        try {
+            rabbitTemplate.convertAndSend("ns.exchange-fanout.wn.v0", "", objectMapper.writeValueAsString(payload));
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
     }
 }

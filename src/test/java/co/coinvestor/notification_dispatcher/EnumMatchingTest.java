@@ -1,10 +1,15 @@
 package co.coinvestor.notification_dispatcher;
 
 import org.junit.jupiter.api.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.Arrays;
 
+
 public class EnumMatchingTest {
+
+    private final Logger log = LoggerFactory.getLogger(this.getClass().getName());
 
     public enum TestEnum1{
         STRATEGY_PURCHASE, STRATEGY_LIKE, NEW_POST, POST_REPLY, POST_LIKE,
@@ -32,6 +37,8 @@ public class EnumMatchingTest {
 
         System.out.println(follow2 == follow);
         System.out.println(follow2.equals(follow));
+
+        log.info("FIN");
 
     }
 }

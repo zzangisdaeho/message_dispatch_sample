@@ -1,6 +1,5 @@
 package co.coinvestor.notification_dispatcher.dto;
 
-import co.coinvestor.notification_dispatcher.enums.Destination;
 import co.coinvestor.notification_dispatcher.enums.NotificationSource;
 import co.coinvestor.notification_dispatcher.enums.NotificationType;
 import lombok.AllArgsConstructor;
@@ -11,16 +10,12 @@ import lombok.NoArgsConstructor;
 import java.time.ZonedDateTime;
 import java.util.List;
 
-@Data
 @Builder
-@NoArgsConstructor
-@AllArgsConstructor
-public class NSRequestDto {
+public class MailSendDto {
 
     private NotificationSource source;
-    private Destination destination;
 
-    private List<Long> receiverIdList;
+    private long receiverId;
 
     private SenderInfo senderInfo;
 
@@ -53,7 +48,7 @@ public class NSRequestDto {
 
         private String targetUrl;
 
-        private List<String> receiverEmailAddressList;
+        private String receiverEmailAddress;
 
         private String templateName;
 

@@ -1,13 +1,17 @@
 package co.coinvestor.notification_dispatcher.document;
 
-import lombok.*;
+import co.coinvestor.notification_dispatcher.enums.NotificationSource;
+import co.coinvestor.notification_dispatcher.enums.NotificationType;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.TypeAlias;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.ZonedDateTime;
-import java.util.Arrays;
 import java.util.Date;
 
 
@@ -22,6 +26,8 @@ public class Notification {
 
     private String transactionId;
 
+    private NotificationSource source;
+
     //알림을 받을 사용자의 아이디
     @Indexed
     private long receiverId;
@@ -31,18 +37,10 @@ public class Notification {
 
     private NotificationType type;
 
-    //STRATEGY_PURCHASE, STRATEGY_LIKE, NEW_POST : Strategy 식별자
-    //POST_REPLY, POST_LIKE, MENTION : POST 식별자
-    //FOLLOW : receiverId
-    private String target;
-
-    //target으로 바로이동 할 수 있는 url
-    private String targetUrl;
-
     //NEW_POST : 신규 POST 내용
     //POST_REPLY : POST 댓글 내용
     //MENTION : 멘션된 POST의 내용
-    private Object content;
+    private Payload payload;
 
     //receiver가 해당 메세지를 봤는지 여부
     private boolean read;
@@ -58,21 +56,10 @@ public class Notification {
     private Date createdAt = Date.from(ZonedDateTime.now().toInstant());
 
 
-    public enum NotificationType{
-        STRATEGY_PURCHASE, STRATEGY_LIKE, NEW_POST, POST_REPLY, POST_LIKE,
-        MENTION, FOLLOW;
-
-        public static NotificationType matcher(String name){
-            return Arrays.stream(NotificationType.values())
-                    .filter(notificationType -> notificationType.name().equals(name))
-                    .findAny().get();
-        }
-    }
-
     @Builder
     @NoArgsConstructor
     @AllArgsConstructor
-    @Data
+    @Getter
     public static class SenderInfo{
         private Long senderId;
 
@@ -81,8 +68,20 @@ public class Notification {
         private String senderProfileUrl;
     }
 
-    public Notification read() {
-        read = true;
-        return this;
+    @Builder
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class Payload{
+
+        //STRATEGY_PURCHASE, STRATEGY_LIKE, NEW_POST : Strategy 식별자
+        //POST_REPLY, POST_LIKE, MENTION : POST 식별자
+        //FOLLOW : receiverId
+        private String target;
+
+        //target으로 바로이동 할 수 있는 url
+        private String targetUrl;
+
+        private Object content;
     }
+
 }
